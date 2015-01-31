@@ -6,25 +6,21 @@ from nat24h_api.models import VirtualField
 
 class Activity(models.Model):
     class Meta:
-        app_label = 'nat24h_api'
+        abstract = True
     name = models.CharField(max_length=100)
-    type = models.CharField(max_length=25, choices=[
-        ("individual", "individual"),
-        ("team", "team"),
-    ])
 
     def __unicode__(self):
-        return self.name + " (" + self.type + ")"
+        return self.name
 
 
-
-class ActivityInscription(models.Model):
+class Team(models.Model):
     class Meta:
         app_label = 'nat24h_api'
     name = models.CharField(max_length=100)
-    size_limit = models.IntegerField(default=None)
     activity = models.ForeignKey(Activity)
+    admin = models.ForeignKey(User)
     members = models.ManyToManyField(User)
+    # result = models.CharField(max_length=500)
 
     def __unicode__(self):
-        return self.name + " (" + self.activity + ") [" + self.members + "]"
+        return self.name + " (" + self.activity + ")" + unicode([self.admin] + self.members)
