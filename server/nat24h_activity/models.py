@@ -73,7 +73,7 @@ class Team(models.Model):
     # result = models.CharField(max_length=500)
 
     def __unicode__(self):
-        return self.name + " (" + self.activity + ")" + unicode([self.admin] + self.members)
+        return self.name + " (activity: " + unicode(self.activity) + ", admin: " + unicode(self.admin) + ")"
 
 
 class TeamSerializer(serializers.ModelSerializer):
