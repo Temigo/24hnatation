@@ -7,13 +7,14 @@ admin.autodiscover()
 # import permission
 # permission.autodiscover()
 
-from nat24h_base.models import UserViewSet, GroupViewSet
+from nat24h_base.models import UserViewSet, ProfileViewSet, GroupViewSet
 from nat24h_activity.models import ActivityViewSet, TeamViewSet, TimeSlotViewSet, TimeSlotSubscriptionViewSet
 
 
 router = routers.DefaultRouter()
 
 router.register('user', UserViewSet)
+router.register('profile', ProfileViewSet)
 router.register('group', GroupViewSet)
 
 router.register('activity', ActivityViewSet)

@@ -25,7 +25,6 @@ class Group(models.Model):
         ("binet", "Binet"),
         ("section", "Section"),
     ])
-    members = models.ManyToManyField(User)
 
     def __unicode__(self):
         return self.name + " (" + self.type + ")"
@@ -43,3 +42,27 @@ class GroupViewSet(viewsets.ModelViewSet):
     filter_fields = {
         'type': ['exact']}
     search_fields = ('name')
+
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User)
+    groups = models.ManyToManyField(Group)
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.name + " " + self.surname
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+    _type = VirtualField("Profile")
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    filter_fields = {
+        'user': ['exact']}
