@@ -15,8 +15,36 @@ class TimeSlot(models.Model):
         return "slot %s : %s" % (self.start, self.end)
 
 
+class TimeSlotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TimeSlot
+    _type = VirtualField("TimeSlot")
+
+
+class TimeSlotViewSet(viewsets.ModelViewSet):
+    queryset = TimeSlot.objects.all()
+    serializer_class = TimeSlotSerializer
+
+
+
+
 class TimeSlotSubscription(models.Model):
     class Meta:
         app_label = 'nat24h_api'
     user = models.ForeignKey(User)
+    slot = models.ForeignKey(TimeSlot)
     # result = models.FloatField()
+
+
+class TimeSlotSubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TimeSlotSubscription
+    _type = VirtualField("TimeSlotSubscription")
+
+
+class TimeSlotSubscriptionViewSet(viewsets.ModelViewSet):
+    queryset = TimeSlotSubscription.objects.all()
+    serializer_class = TimeSlotSubscriptionSerializer
+    filter_fields = {
+        'slot': ['exact'],
+        'user': ['exact']}
