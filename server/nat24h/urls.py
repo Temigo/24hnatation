@@ -4,8 +4,8 @@ from rest_framework import routers
 from django.contrib import admin
 admin.autodiscover()
 
-# import permission
-# permission.autodiscover()
+import permission
+permission.autodiscover()
 
 from nat24h_base.models import UserViewSet, ProfileViewSet, GroupViewSet
 from nat24h_activity.models import ActivityViewSet, TeamViewSet, TimeSlotViewSet, TimeSlotSubscriptionViewSet
