@@ -5,3 +5,6 @@ django-cors-headers
 django-permission
 django-filter
 markdown
+
+django-extensions
+werkzeug
