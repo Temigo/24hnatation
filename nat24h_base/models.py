@@ -19,8 +19,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class Group(models.Model):
-    class Meta:
-        app_label = 'nat24h_api'
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=25, choices=[
         ("school", "École"),
@@ -48,8 +46,6 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 
 class Profile(models.Model):
-    class Meta:
-        app_label = 'nat24h_api'
     user = models.OneToOneField(User)
     groups = models.ManyToManyField(Group)
     name = models.CharField(max_length=100)

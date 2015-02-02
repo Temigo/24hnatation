@@ -5,8 +5,6 @@ from nat24h.utils import VirtualField
 
 
 class TimeSlot(models.Model):
-    class Meta:
-        app_label = 'nat24h_api'
     start = models.DateTimeField()
     end = models.DateTimeField()
     value = models.FloatField()
@@ -28,8 +26,6 @@ class TimeSlotViewSet(viewsets.ModelViewSet):
 
 
 class TimeSlotSubscription(models.Model):
-    class Meta:
-        app_label = 'nat24h_api'
     user = models.ForeignKey(User)
     slot = models.ForeignKey(TimeSlot)
     # result = models.FloatField()
@@ -51,8 +47,6 @@ class TimeSlotSubscriptionViewSet(viewsets.ModelViewSet):
 
 
 class Activity(models.Model):
-    class Meta:
-        app_label = 'nat24h_api'
     name = models.CharField(max_length=100)
 
     def __unicode__(self):
@@ -72,8 +66,6 @@ class ActivityViewSet(viewsets.ModelViewSet):
 
 
 class Team(models.Model):
-    class Meta:
-        app_label = 'nat24h_api'
     name = models.CharField(max_length=100)
     activity = models.ForeignKey(Activity)
     admin = models.ForeignKey(User, related_name="owned_team_set")

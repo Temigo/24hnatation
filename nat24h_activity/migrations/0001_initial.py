@@ -9,10 +9,32 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('nat24h_api', '0003_auto_20150202_1613'),
     ]
 
     operations = [
+        migrations.CreateModel(
+            name='Activity',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=100)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Team',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=100)),
+                ('activity', models.ForeignKey(to='nat24h_activity.Activity')),
+                ('admin', models.ForeignKey(related_name='owned_team_set', to=settings.AUTH_USER_MODEL)),
+                ('members', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
         migrations.CreateModel(
             name='TimeSlot',
             fields=[
@@ -29,7 +51,7 @@ class Migration(migrations.Migration):
             name='TimeSlotSubscription',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('slot', models.ForeignKey(to='nat24h_api.TimeSlot')),
+                ('slot', models.ForeignKey(to='nat24h_activity.TimeSlot')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
