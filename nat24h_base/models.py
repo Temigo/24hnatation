@@ -4,7 +4,7 @@
 from django.db import models
 from rest_framework import viewsets, serializers
 from django.contrib.auth.models import User
-from nat24h_api.models import VirtualField
+from nat24h.utils import VirtualField
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,10 +15,6 @@ class UserSerializer(serializers.ModelSerializer):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = (PerBarPermissionsOrAnonReadOnly,)
-    # filter_fields = {
-    #     'type': ['exact']}
-    # search_fields = ('name')
 
 
 
@@ -45,11 +41,9 @@ class GroupSerializer(serializers.ModelSerializer):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    # permission_classes = (PerBarPermissionsOrAnonReadOnly,)
     filter_fields = {
         'type': ['exact']}
     search_fields = ('name')
-
 
 
 
@@ -74,6 +68,5 @@ class ProfileSerializer(serializers.ModelSerializer):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    # permission_classes = (PerBarPermissionsOrAnonReadOnly,)
     filter_fields = {
         'user': ['exact']}

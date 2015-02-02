@@ -34,7 +34,8 @@ INSTALLED_APPS = (
     'rest_framework',
     'corsheaders',
     'permission',
-    'nat24h_api',
+    'nat24h_base',
+    'nat24h_activity'
 )
 
 

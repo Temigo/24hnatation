@@ -7,9 +7,8 @@ admin.autodiscover()
 # import permission
 # permission.autodiscover()
 
-from nat24h_api.models.profile import UserViewSet, ProfileViewSet, GroupViewSet
-from nat24h_api.models.activity import ActivityViewSet, TeamViewSet
-from nat24h_api.models.filrouge import TimeSlotViewSet, TimeSlotSubscriptionViewSet
+from nat24h_base.models import UserViewSet, ProfileViewSet, GroupViewSet
+from nat24h_activity.models import ActivityViewSet, TeamViewSet, TimeSlotViewSet, TimeSlotSubscriptionViewSet
 
 
 router = routers.DefaultRouter()
@@ -20,7 +19,6 @@ router.register('group', GroupViewSet)
 
 router.register('activity', ActivityViewSet)
 router.register('team', TeamViewSet)
-
 router.register('slot', TimeSlotViewSet)
 router.register('slotsubscription', TimeSlotSubscriptionViewSet)
 
