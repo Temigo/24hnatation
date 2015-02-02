@@ -10,6 +10,9 @@ from nat24h.utils import VirtualField
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        exclude = ('groups',)
+        read_only_fields = ('last_login', 'date_joined')
+        write_only_fields = ('password',)
     _type = VirtualField("User")
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -48,11 +51,9 @@ class GroupViewSet(viewsets.ModelViewSet):
 class Profile(models.Model):
     user = models.OneToOneField(User)
     groups = models.ManyToManyField(Group)
-    name = models.CharField(max_length=100)
-    surname = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return self.name + " " + self.surname
+        return self.user.first_name + " " + self.user.last_name
 
 
 class ProfileSerializer(serializers.ModelSerializer):
