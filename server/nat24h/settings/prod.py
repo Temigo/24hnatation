@@ -1,12 +1,13 @@
 from .dev_local import *
 
-STATIC_URL = '/bars/api/static/'
+# TODO: temporary
+DEBUG = True
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django',
-        'HOST': 'localhost',
+        'HOST': 'mysqldb',
         'USER': 'root',
         'PASSWORD': 'root',
     }

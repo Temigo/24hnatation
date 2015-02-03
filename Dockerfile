@@ -29,9 +29,9 @@ WORKDIR /srv/app/client
 
 ADD server /srv/app/server
 WORKDIR /srv/app/server
-# RUN sed -i 's/nat24h\.settings\.dev_local/nat24h.settings.prod/' nat24h/wsgi.py && \
-#     sed -i 's/nat24h\.settings\.dev_local/nat24h.settings.prod/' manage.py && \
-RUN echo yes | python manage.py collectstatic
+RUN sed -i 's/nat24h\.settings\.dev_local/nat24h.settings.prod/' nat24h/wsgi.py && \
+    sed -i 's/nat24h\.settings\.dev_local/nat24h.settings.prod/' manage.py && \
+    echo yes | python manage.py collectstatic
 
 
 ADD supervisord.conf /etc/supervisord.conf
