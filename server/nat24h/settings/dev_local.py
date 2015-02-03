@@ -4,13 +4,6 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-
-INSTALLED_APPS = INSTALLED_APPS + (
-    'django.contrib.staticfiles',
-    'django_extensions',
-    # 'debug_toolbar',
-)
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
