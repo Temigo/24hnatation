@@ -25,7 +25,7 @@ class Group(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=25, choices=[
         ("school", "École"),
-        ("binet", "Binet"),
+        ("binet", "Asso/Binet"),
         ("section", "Section"),
     ])
 
