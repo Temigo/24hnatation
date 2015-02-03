@@ -55,7 +55,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
-    groups = models.ManyToManyField(Group)
+    groups = models.ManyToManyField(Group, blank=True)
 
     def __unicode__(self):
         return self.user.first_name + " " + self.user.last_name
