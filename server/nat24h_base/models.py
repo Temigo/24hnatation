@@ -8,16 +8,6 @@ from nat24h.utils import get_default_permission_group
 from nat24h.utils import VirtualField
 
 
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
-@receiver(post_save, sender=User)
-def user_created(sender, instance, created, **kwargs):
-    if created:
-        instance.groups.add(get_default_permission_group())
-        instance.save()
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -82,3 +72,14 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     filter_fields = {
         'user': ['exact']}
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def user_created(sender, instance, created, **kwargs):
+    if created:
+        instance.groups.add(get_default_permission_group())
+        instance.save()
+        Profile.objects.create(user=instance)
