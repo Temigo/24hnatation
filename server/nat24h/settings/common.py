@@ -99,7 +99,7 @@ REST_FRAMEWORK = {
 # Auth
 
 AUTHENTICATION_BACKENDS = (
-    # 'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
     'permission.backends.PermissionBackend',
 )
 
