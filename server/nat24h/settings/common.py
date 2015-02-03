@@ -82,9 +82,8 @@ REST_FRAMEWORK = {
         'rest_framework.serializers.HyperlinkedModelSerializer',
 
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'nat24h_api.perms.BarPermissions'
         'rest_framework.permissions.DjangoObjectPermissions',
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -97,6 +96,12 @@ REST_FRAMEWORK = {
     )
 }
 
+# Auth
+
+AUTHENTICATION_BACKENDS = (
+    # 'django.contrib.auth.backends.ModelBackend',
+    'permission.backends.PermissionBackend',
+)
 
 import datetime
 JWT_AUTH = {
@@ -105,10 +110,10 @@ JWT_AUTH = {
 
 # Permissions
 
-PERMISSION_CHECK_PERMISSION_PRESENCE = False
-PERMISSION_DEFAULT_APL_ANY_PERMISSION = True
+PERMISSION_CHECK_PERMISSION_PRESENCE = True
+PERMISSION_DEFAULT_APL_ANY_PERMISSION = False
 PERMISSION_DEFAULT_APL_CHANGE_PERMISSION = True
-PERMISSION_DEFAULT_APL_DELETE_PERMISSION = True
+PERMISSION_DEFAULT_APL_DELETE_PERMISSION = False
 
 # CORS headers
 
