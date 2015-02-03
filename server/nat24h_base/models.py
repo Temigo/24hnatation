@@ -4,7 +4,18 @@
 from django.db import models
 from rest_framework import viewsets, serializers
 from django.contrib.auth.models import User
+from nat24h.utils import get_default_permission_group
 from nat24h.utils import VirtualField
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def user_created(sender, instance, created, **kwargs):
+    if created:
+        instance.groups.add(get_default_permission_group())
+        instance.save()
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -19,6 +30,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    # def perform_create(self, serializer):
+    #     user = serializer.save()
+    #     user.groups.add(get_default_permission_group())
+    #     user.save()
 
 
 class Group(models.Model):
