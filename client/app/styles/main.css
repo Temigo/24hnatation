@@ -141,3 +141,9 @@ dt {
     font-weight: 100;
     width: 100px;
 }
+
+.sponsors img {
+    display: inline-block;
+    height: 100px;
+    margin: 20px;
+}

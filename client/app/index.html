@@ -35,9 +35,9 @@
             <li ng-class="pactive == 'programme' && 'active'"><a title="Programme" href="#/programme">Programme</a></li>
             <li ng-class="pactive == 'reglement' && 'active'"><a title="Règlement" href="#/reglement">Règlement</a></li>
             <li><a title="Inscriptions" href="#/inscriptions">Inscriptions</a></li>
-            <li><a title="Photos" href="#/photos">Photos</a></li>
+            <li ng-if="false"><a title="Photos" href="#/photos">Photos</a></li>
             <li ng-class="pactive == 'contact' && 'active'"><a title="Contact" href="#/contact">Contact</a></li>
-            <li><a title="Partenaires" href="#/partenaires">Partenaires</a></li>
+            <li ng-class="pactive == 'partenaires' && 'active'"><a title="Partenaires" href="#/partenaires">Partenaires</a></li>
         </ul>
     </div>
 
@@ -69,6 +69,7 @@
         <script src="scripts/controllers/reglement.js"></script>
         <script src="scripts/controllers/programme.js"></script>
         <script src="scripts/controllers/contact.js"></script>
+        <script src="scripts/controllers/partenaires.js"></script>
         <!-- endbuild -->
 </body>
 </html>
