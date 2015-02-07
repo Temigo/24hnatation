@@ -9,5 +9,5 @@
  */
 angular.module('v24hApp')
   .controller('InscriptionCtrl', function ($scope, $rootScope) {
-    $rootScope.pactive = "inscription";
+    $rootScope.pactive = "connexion";
   });

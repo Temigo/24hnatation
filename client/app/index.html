@@ -34,10 +34,12 @@
             <li ng-class="pactive == 'accueil' && 'active'"><a title="Accueil" href="#/">Accueil</a></li>
             <li ng-class="pactive == 'programme' && 'active'"><a title="Programme" href="#/programme">Programme</a></li>
             <li ng-class="pactive == 'reglement' && 'active'"><a title="Règlement" href="#/reglement">Règlement</a></li>
-            <li ng-class="pactive == 'inscription' && 'active'"><a title="Inscription" href="#/inscription">Inscription</a></li>
+            <li ng-class="pactive == 'inscriptions' && 'active'"><a title="Inscriptions" href="#/inscriptions">Inscriptions</a></li>
             <li ng-if="false"><a title="Photos" href="#/photos">Photos</a></li>
             <li ng-class="pactive == 'contact' && 'active'"><a title="Contact" href="#/contact">Contact</a></li>
             <li ng-class="pactive == 'partenaires' && 'active'"><a title="Partenaires" href="#/partenaires">Partenaires</a></li>
+            <li ng-if="!auth.isAuthenticated()" ng-class="pactive == 'connexion' && 'active'"><a title="Connexion" href="#/connexion">Connexion</a></li>
+            <li ng-if="auth.isAuthenticated()"><a title="Déconnexion" ng-click="auth.logout()" class="link">Déconnexion</a></li>
         </ul>
     </div>
 
@@ -59,18 +61,20 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/reglement.js"></script>
         <script src="scripts/controllers/programme.js"></script>
         <script src="scripts/controllers/contact.js"></script>
         <script src="scripts/controllers/partenaires.js"></script>
         <script src="scripts/controllers/inscription.js"></script>
+        <script src="scripts/controllers/connexion.js"></script>
+        <script src="scripts/services/auth.js"></script>
         <!-- endbuild -->
 </body>
 </html>

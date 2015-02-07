@@ -15,17 +15,19 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngStorage',
   ])
+  .provider('APIURL', function APIURLProvider() {
+        var self = this;
+        this.url = "http://nadrieril:8001/api";
+        this.$get = function(){return self.url;};
+    })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
       })
       .when('/reglement', {
         templateUrl: 'views/reglement.html',
@@ -47,7 +49,15 @@ angular
         templateUrl: 'views/inscription.html',
         controller: 'InscriptionCtrl'
       })
+      .when('/connexion', {
+        templateUrl: 'views/connexion.html',
+        controller: 'ConnexionCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .run(function($rootScope, auth) {
+      $rootScope.auth = auth;
+  })
+  ;
