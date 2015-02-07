@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: PartenairesCtrl', function () {
+describe('Controller: InscriptionCtrl', function () {
 
   // load the controller's module
   beforeEach(module('v24hApp'));
 
-  var PartenairesCtrl,
+  var InscriptionCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    PartenairesCtrl = $controller('PartenairesCtrl', {
+    InscriptionCtrl = $controller('InscriptionCtrl', {
       $scope: scope
     });
   }));
