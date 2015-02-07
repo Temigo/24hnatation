@@ -53,6 +53,10 @@ angular
         templateUrl: 'views/connexion.html',
         controller: 'ConnexionCtrl'
       })
+      .when('/inscriptions', {
+        templateUrl: 'views/inscriptions.html',
+        controller: 'InscriptionsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
