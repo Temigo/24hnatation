@@ -10,6 +10,7 @@
 angular.module('v24hApp')
   .controller('InscriptionsCtrl', function ($scope, $rootScope, auth, $resource, APIURL) {
       $rootScope.pactive = 'inscriptions';
+      $scope.iu = auth.getUser().id;
 
       var Slotsubscription = $resource(APIURL + '/slotsubscription/:id/');
       var Slot = $resource(APIURL + '/slot/:id');
@@ -75,7 +76,13 @@ angular.module('v24hApp')
       $scope.joinTeam = function () {
           Team.get({id: $scope.jteam.team}, function (cteam) {
               cteam.members.push(auth.getUser().id);
-              cteam.$update(reloadTeam);
+              cteam.$update(reloadTeams);
           });
       };
+      $scope.removeFromTeam = function (team, member) {
+          Team.get({id: team}, function (cteam) {
+              cteam.members.splice(cteam.members.indexOf(member));
+              cteam.$update(reloadTeams);
+          });
+      }
   });

@@ -12,7 +12,7 @@ angular.module('v24hApp')
     $rootScope.pactive = 'connexion';
 
     $scope.user = {
-        username: '',
+        email: '',
         password: ''
     };
 

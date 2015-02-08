@@ -12,7 +12,7 @@ angular.module('v24hApp')
     $rootScope.pactive = "connexion";
     $scope.user = {};
     $scope.inscription = function () {
-        $http.post(APIURL + '/user/', $scope.user).then(function () {
+        $http.post(APIURL + '/signup/', $scope.user).then(function () {
             $location.path('/connexion');
         });
     };

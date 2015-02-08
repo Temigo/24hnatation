@@ -38,7 +38,7 @@
             <td>{{ activities[t.activity].name }}</td>
             <td>{{ activities[t.activity].start | date:'shortTime' }} - {{ activities[t.activity].end | date:'shortTime' }}</td>
             <td>
-                <span ng-repeat="m in t.members">{{ users[m].first_name }} {{ users[m].last_name }}<br /></span>
+                <span ng-repeat="m in t.members">{{ users[m].first_name }} {{ users[m].last_name }} <span ng-show="t.admin == iu"><a title="Retirer des membres de l'équipe" ng-click="removeFromTeam(t.id, m.id)" class="link">Retirer</span><br /></span>
             </td>
         </tr>
     </table>
