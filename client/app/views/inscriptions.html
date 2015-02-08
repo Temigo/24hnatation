@@ -1,4 +1,13 @@
 <div class="block-middle">
     <h3>Fil rouge</h3>
+    <div ng-if="slotsubscriptions.length > 0">
+        Vous êtes inscrit
+        <span ng-if="slotsubscriptions.length > 1">aux créneaux suivants</span>
+        <span ng-if="slotsubscriptions.length == 1">au créneau suivant</span> :<br />
+        <dl ng-repeat="s in slotsubscriptions">
+            <dt>{{ slots[s.slot].start | date:'shortTime' }} - {{ slots[s.slot].end | date:'shortTime' }}</dt>
+            <dd>{{ slots[s.slot].value }} point{{ slots[s.slot].value > 1 && 's' || '' }}</dd>
+        </dl>
+    </div>
     <h3>Activités en équipe</h3>
 </div>

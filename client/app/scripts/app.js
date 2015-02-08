@@ -61,6 +61,13 @@ angular
         redirectTo: '/'
       });
   })
+  .config(['$httpProvider',
+        function ($httpProvider) {
+            $httpProvider.interceptors.push('auth.interceptor');
+    }])
+    .config(['$resourceProvider', function($resourceProvider) {
+      $resourceProvider.defaults.stripTrailingSlashes = false;
+    }])
   .run(function($rootScope, auth) {
       $rootScope.auth = auth;
   })
