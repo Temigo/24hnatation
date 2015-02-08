@@ -6,7 +6,12 @@
         <span ng-if="slotsubscriptions.length == 1">au créneau suivant</span> :<br />
         <dl ng-repeat="s in slotsubscriptions">
             <dt>{{ slots[s.slot].start | date:'shortTime' }} - {{ slots[s.slot].end | date:'shortTime' }}</dt>
-            <dd>{{ slots[s.slot].value }} point{{ slots[s.slot].value > 1 && 's' || '' }}</dd>
+            <dd>
+                <span class="nbp">
+                    {{ slots[s.slot].value }} point{{ slots[s.slot].value > 1 && 's' || '' }}
+                </span>
+                <a title="Désinscription" ng-click="unsubscribe(s.id)" class="link">Désinscription</a>
+            </dd>
         </dl>
         <br />
     </div>

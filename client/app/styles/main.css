@@ -129,7 +129,7 @@ dl {
     text-align: left;
     display: block;
     margin: 0 auto;
-    width: 300px;
+    width: 500px;
     line-height: 1.4em;
 }
 dt, dd {
@@ -164,4 +164,8 @@ input:focus {
 }
 a.link {
     cursor: pointer;
+}
+.nbp {
+    display: inline-block;
+    width: 100px;
 }
