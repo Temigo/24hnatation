@@ -15,6 +15,7 @@ angular.module('v24hApp')
       var Slot = $resource(APIURL + '/slot/:id');
       var Activity = $resource(APIURL + '/activity/:id');
       var Team = $resource(APIURL + '/team/:id/', {id:'@id'}, {update: {method: 'PUT'}});
+      var User = $resource(APIURL + '/user/:id');
 
       var slots = Slot.query(function ()  {
           $scope.slots = {};
@@ -28,9 +29,12 @@ angular.module('v24hApp')
               $scope.activities[activities[i].id] = activities[i];
           }
       });
-      $scope.teams = Team.query();
-      $scope.nteam = {activity: 1, name: ''};
-      $scope.jteam = {team: 1};
+      var users = User.query(function ()  {
+          $scope.users = {};
+          for (var i = 0; i < users.length; i++) {
+              $scope.users[users[i].id] = users[i];
+          }
+      });
 
       function reloadSlotsubscriptions() {
           var slotsubscriptions = Slotsubscription.query({'user': auth.getUser().id}, function () {
@@ -39,6 +43,16 @@ angular.module('v24hApp')
           $scope.nslot = {id: 1};
       }
       reloadSlotsubscriptions();
+
+      function reloadTeams() {
+          var yourTeams = Team.query({'members': auth.getUser().id}, function () {
+              $scope.yourTeams = yourTeams;
+          });
+          $scope.teams = Team.query();
+          $scope.nteam = {activity: 1, name: ''};
+          $scope.jteam = {team: 1};
+      }
+      reloadTeams();
 
       $scope.slotsubscribed = function () {
           var nslot = new Slotsubscription();
@@ -56,12 +70,12 @@ angular.module('v24hApp')
           nteam.name = $scope.nteam.name;
           nteam.admin = auth.getUser().id;
           nteam.members = [auth.getUser().id];
-          nteam.$save();
+          nteam.$save(reloadTeams);
       };
       $scope.joinTeam = function () {
           Team.get({id: $scope.jteam.team}, function (cteam) {
               cteam.members.push(auth.getUser().id);
-              cteam.$update();
+              cteam.$update(reloadTeam);
           });
       };
   });
