@@ -14,7 +14,8 @@
       function ($injector, $localStorage, $q, APIURL, $rootScope) {
           if ($localStorage.auth === undefined) {
               $localStorage.auth = {
-                  token: null
+                  token: null,
+                  user: null
               };
           }
           return {
@@ -22,7 +23,10 @@
                   return $injector.get('$http').post(APIURL + '/api-token-auth/', credentials, {'headers':{'Content-Type':"application/json"}}).then(
                       function(response) {
                           $localStorage.auth.token = response.data.token;
-                          return response.data.user;
+                          return $injector.get('$http').get(APIURL + '/user/?username=' + credentials.username, {'headers': {'Authorization': "JWT " + response.data.token}}).then(function (user) {
+                              $localStorage.auth.user = user.data[0];
+                              return user.data[0];
+                          });
                       },
                       function(response) {
                           $localStorage.auth.token = null;
@@ -39,6 +43,9 @@
               },
               getToken: function() {
                   return $localStorage.auth.token;
+              },
+              getUser: function() {
+                  return $localStorage.auth.user;
               }
           };
   }])
