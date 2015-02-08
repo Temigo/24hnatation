@@ -22,5 +22,32 @@
         </select>
         <input type="submit" value="Inscription" />
     </form>
+    <br /><br />
+
     <h3>Activités en équipe</h3>
+    <h4>Vos équipes</h4>
+
+    <h4>Créer une équipe</h4>
+    <form ng-submit="createTeam()">
+        <label for="activity">Activité :</label>
+        <select ng-model="nteam.activity">
+            <option ng-repeat="a in activities" value="{{ a.id }}">{{ a.name }}</option>
+        </select><br />
+        <label for="name">Nom :</label>
+        <input type="text" ng-model="nteam.name" /><br /><br />
+        <div class="text-center">
+            <input type="submit" value="Créer cette équipe" />
+        </div>
+    </form>
+    
+    <h4>Rejoindre une équipe</h4>
+    <form ng-submit="joinTeam()">
+        <label for="team">Équipe :</label>
+        <select ng-model="jteam.team">
+            <option ng-repeat="t in teams | orderBy:'name'" value="{{ t.id }}">{{ t.name }} • {{ activities[t.activity].name }} • {{ t.members.length }} membre{{ t.members.length > 1 && 's' || '' }}</option>
+        </select><br /><br />
+        <div class="text-center">
+            <input type="submit" value="Rejoindre cette équipe" />
+        </div>
+    </form>
 </div>
