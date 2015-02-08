@@ -21,4 +21,17 @@ angular.module('v24hApp')
           }
       });
       $scope.slotsubscriptions = Slotsubscription.query({'user': auth.getUser().id});
+      $scope.nslot = {id: 1};
+
+      $scope.slotsubscribed = function () {
+          var nslot = new Slotsubscription();
+          nslot.user = auth.getUser().id;
+          nslot.slot = $scope.nslot.id;
+          nslot.$save(function () {
+              var slotsubscriptions = Slotsubscription.query({'user': auth.getUser().id}, function () {
+                  $scope.slotsubscriptions = slotsubscriptions;
+              });
+              $scope.nslot = {id: 1};
+          });
+      };
   });

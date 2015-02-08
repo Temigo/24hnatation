@@ -8,6 +8,14 @@
             <dt>{{ slots[s.slot].start | date:'shortTime' }} - {{ slots[s.slot].end | date:'shortTime' }}</dt>
             <dd>{{ slots[s.slot].value }} point{{ slots[s.slot].value > 1 && 's' || '' }}</dd>
         </dl>
+        <br />
     </div>
+    <form ng-submit="slotsubscribed()">
+        Inscription à un nouveau créneau :
+        <select ng-model="nslot.id">
+            <option ng-repeat="s in slots" value="{{ s.id }}">{{ s.start | date:'shortTime' }} - {{ s.end | date:'shortTime' }} : {{ s.value }} point{{ s.value > 1 && 's' || '' }}</option>
+        </select>
+        <input type="submit" value="Inscription" />
+    </form>
     <h3>Activités en équipe</h3>
 </div>
