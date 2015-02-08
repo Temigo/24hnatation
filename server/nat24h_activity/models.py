@@ -45,8 +45,8 @@ class TeamSerializer(serializers.ModelSerializer):
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
-    filter_fields = {
-        'activity': ['exact']}
+    filter_fields = ['activity', 'members']
+
 
 
 

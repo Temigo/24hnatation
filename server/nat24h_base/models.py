@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from rest_framework import viewsets, serializers
 from django.contrib.auth.models import User
+from rest_framework import viewsets, serializers, permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from nat24h.utils import get_default_permission_group
 from nat24h.utils import VirtualField
 
@@ -11,19 +14,31 @@ from nat24h.utils import VirtualField
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = ('groups',)
-        read_only_fields = ('last_login', 'date_joined')
-        write_only_fields = ('password',)
+        exclude = ('groups', 'password', 'username')
+        read_only_fields = ('last_login', 'date_joined', 'is_superuser')
+        # write_only_fields = ('password',)
     _type = VirtualField("User")
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    # def perform_create(self, serializer):
-    #     user = serializer.save()
-    #     user.groups.add(get_default_permission_group())
-    #     user.save()
+
+class SignupView(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request):
+        unserializer = UserSerializer(data=request.data)
+        unserializer.is_valid(raise_exception=True)
+        user = unserializer.save()
+        # if 'password' in request.data:
+        #     user.set_password(request.data['password'])
+        user.set_password('password')
+        user.groups.add(get_default_permission_group())
+        user.save()
+
+        serializer = UserSerializer(user)
+        return Response(serializer.data, 201)
 
 
 class Group(models.Model):
