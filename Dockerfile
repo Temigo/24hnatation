@@ -25,7 +25,7 @@ RUN pip install -r requirements.txt
 
 ADD client /srv/app/client
 WORKDIR /srv/app/client
-# RUN gulp build
+RUN gulp build
 
 ADD server /srv/app/server
 WORKDIR /srv/app/server
