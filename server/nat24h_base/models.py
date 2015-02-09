@@ -14,8 +14,8 @@ from nat24h.utils import VirtualField
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = ('groups', 'password', 'username')
-        read_only_fields = ('last_login', 'date_joined', 'is_superuser')
+        exclude = ('groups', 'password')
+        read_only_fields = ('last_login', 'date_joined', 'is_superuser', 'user_permissions')
         # write_only_fields = ('password',)
     _type = VirtualField("User")
 
@@ -28,7 +28,9 @@ class SignupView(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
-        unserializer = UserSerializer(data=request.data)
+        data = request.data
+        data['username'] = data['email']
+        unserializer = UserSerializer(data=data)
         unserializer.is_valid(raise_exception=True)
         user = unserializer.save()
         # if 'password' in request.data:
