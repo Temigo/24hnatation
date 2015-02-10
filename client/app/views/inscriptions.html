@@ -1,4 +1,19 @@
 <div class="block-middle">
+    <h3>Vos groupes</h3>
+    <div ng-if="profile.groups.length > 0">
+        Vous faîtes partie des groupes suivants :<br />
+        <ul>
+            <li ng-repeat="g in profile.groups">{{ groups[g].name }} • <a title="Quitter ce groupe" ng-click="removeGroup(g)" class="link">Partir</a></li>
+        </ul>
+    </div>
+    <form ng-submit="addGroup(ngroup)">
+        Rejoindre un nouveau groupe :&nbsp;
+        <select ng-model="ngroup">
+            <option ng-repeat="g in groups" value="{{ g.id }}">{{ g.name }}</option>
+        </select>
+        <input type="submit" value="Rejoindre" />
+    </form>
+    <br />
     <h3>Fil rouge</h3>
     <div ng-if="slotsubscriptions.length > 0">
         Vous êtes inscrit

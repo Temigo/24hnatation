@@ -13,11 +13,13 @@ angular.module('v24hApp')
       $scope.iu = auth.getUser().id;
 
       var Slotsubscription = $resource(APIURL + '/slotsubscription/:id/');
-      var Slot = $resource(APIURL + '/slot/:id');
-      var Activity = $resource(APIURL + '/activity/:id');
+      var Slot = $resource(APIURL + '/slot/:id/', {id:'@id'});
+      var Group = $resource(APIURL + '/group/:id/', {id:'@id'});
+      var Profile = $resource(APIURL + '/profile/:id/', {id:'@id'}, {update: {method: 'PUT'}});
+      var Activity = $resource(APIURL + '/activity/:id/', {id:'@id'});
       var Team = $resource(APIURL + '/team/:id/', {id:'@id'});
       var Teamsubscription = $resource(APIURL + '/teamsubscription/:id/', {id:'@id'});
-      var User = $resource(APIURL + '/user/:id');
+      var User = $resource(APIURL + '/user/:id/');
 
       var slots = Slot.query(function ()  {
           $scope.slots = {};
@@ -36,6 +38,15 @@ angular.module('v24hApp')
           for (var i = 0; i < users.length; i++) {
               $scope.users[users[i].id] = users[i];
           }
+      });
+      var groups = Group.query(function ()  {
+          $scope.groups = {};
+          for (var i = 0; i < groups.length; i++) {
+              $scope.groups[groups[i].id] = groups[i];
+          }
+      });
+      var uprofile = Profile.query({'user': auth.getUser().id}, function (uprofile) {
+          $scope.profile = uprofile[0];
       });
 
       function reloadSlotsubscriptions() {
@@ -96,5 +107,14 @@ angular.module('v24hApp')
       };
       $scope.removeFromTeam = function (id) {
           Teamsubscription.delete({id: id}, reloadTeams);
-      }
+      };
+      $scope.addGroup = function (id) {
+          $scope.profile.groups.push(id);
+          console.log($scope.profile);
+          $scope.profile.$update();
+      };
+      $scope.removeGroup = function (id) {
+          $scope.profile.groups.splice($scope.profile.groups.indexOf(id));
+          $scope.profile.$update();
+      };
   });
