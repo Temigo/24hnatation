@@ -20,7 +20,8 @@ angular
   ])
   .provider('APIURL', function APIURLProvider() {
         var self = this;
-        this.url = "http://nadrieril:8001/api";
+        // this.url = "http://nadrieril:8001/api";
+        this.url = "/api";
         this.$get = function(){return self.url;};
     })
   .config(function ($routeProvider) {
