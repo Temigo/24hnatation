@@ -30,7 +30,9 @@ class SignupView(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
-        data = request.data
+        data = dict()
+        for k, v in request.data.items():
+            data[k] = v
         data['username'] = data['email']
         unserializer = UserSerializer(data=data)
         unserializer.is_valid(raise_exception=True)
