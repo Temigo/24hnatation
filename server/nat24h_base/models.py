@@ -72,7 +72,7 @@ Merci de t'être inscrit aux 24h de la natation.
 Pour t'inscrire aux activités, clique sur le lien suivant ou copie-le dans ton navigateur:
 http://24hnatation.binets.fr/#/login/?email={email}&password={password}
 
-Si le lien ne marche pas, vos identifiants pour accéder à votre inscription sont:
+Si le lien ne marche pas, tes identifiants pour accéder à votre inscription sont:
 mail: {email}
 password: {password}
 
