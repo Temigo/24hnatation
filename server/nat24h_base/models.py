@@ -66,18 +66,18 @@ singup_mail = {
     'from_email': '24hnatation@binets.polytechnique.fr',
     'subject': 'Inscription aux 24h de la natation',
     'message': """
-    Cher {name},
+Cher {name},
 
-    Merci de t'être inscrit aux 24h de la natation.
-    Pour t'inscrire aux activités, clique sur le lien suivant ou copie-le dans ton navigateur:
-    http://24hnatation.binets.fr/#/login/?email={email}&password={password}
+Merci de t'être inscrit aux 24h de la natation.
+Pour t'inscrire aux activités, clique sur le lien suivant ou copie-le dans ton navigateur:
+http://24hnatation.binets.fr/#/login/?email={email}&password={password}
 
-    Si le lien ne marche pas, vos identifiants pour accéder à votre inscription sont:
-    mail: {email}
-    password: {password}
+Si le lien ne marche pas, vos identifiants pour accéder à votre inscription sont:
+mail: {email}
+password: {password}
 
-    Cordialement,
-    Les organisateurs des 24h de la natation
+Cordialement,
+Les organisateurs des 24h de la natation
     """
 }
 
