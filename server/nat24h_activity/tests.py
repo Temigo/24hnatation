@@ -6,8 +6,8 @@ from nat24h_activity.models import Activity, Team
 
 class TeamPermsTests(APITestCase):
     def setUp(self):
-        self.user = User.objects.create(username='bob')
-        self.user2 = User.objects.create(username='alice')
+        self.user = User.objects.create(email='bob')
+        self.user2 = User.objects.create(email='alice')
 
         self.activity = Activity.objects.create(name='Test', start=timezone.now(), end=timezone.now())
 

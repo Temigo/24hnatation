@@ -16,7 +16,7 @@ class UserTests(APITestCase):
 
 class GroupPermsTests(APITestCase):
     def setUp(self):
-        self.user = User.objects.create(username='bob')
+        self.user = User.objects.create(email='bob')
 
     def test_add_group(self):
         data = {'name': 'BR', 'type': 'binet'}
