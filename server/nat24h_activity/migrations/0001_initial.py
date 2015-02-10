@@ -17,6 +17,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=100)),
+                ('start', models.DateTimeField()),
+                ('end', models.DateTimeField()),
             ],
             options={
             },
@@ -29,7 +31,17 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('activity', models.ForeignKey(to='nat24h_activity.Activity')),
                 ('admin', models.ForeignKey(related_name='owned_team_set', to=settings.AUTH_USER_MODEL)),
-                ('members', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='TeamSubscription',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('team', models.ForeignKey(to='nat24h_activity.Team')),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
