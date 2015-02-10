@@ -52,7 +52,7 @@ a:hover {
     height: 30%;
     background-image: url("../images/fond.jpg");
     background-repeat:no-repeat;
-    background-position: center bottom;
+    background-position: center center;
 }
 #header-img.big {
     height: 40%;

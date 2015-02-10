@@ -13,7 +13,7 @@ gulp.task('scripts', function () {
     .pipe($.size());
 });
 
-gulp.task('partials', function () {
+gulp.task('views', function () {
   return gulp.src('app/**/*.html')
     .pipe($.minifyHtml({
       empty: true,
@@ -21,13 +21,13 @@ gulp.task('partials', function () {
       quotes: true
     }))
     .pipe($.ngHtml2js({
-      moduleName: 'barsApp'
+      moduleName: 'v24hApp'
     }))
     .pipe(gulp.dest('.tmp'))
     .pipe($.size());
 });
 
-gulp.task('html', ['wiredep', 'scripts', 'partials'], function () {
+gulp.task('html', ['wiredep', 'scripts', 'views'], function () {
   var htmlFilter = $.filter('*.html');
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
@@ -36,7 +36,7 @@ gulp.task('html', ['wiredep', 'scripts', 'partials'], function () {
   return gulp.src('app/*.html')
     .pipe($.inject(gulp.src('.tmp/**/*.js'), {
       read: false,
-      starttag: '<!-- inject:partials -->',
+      starttag: '<!-- inject:views -->',
       addRootSlash: false,
       addPrefix: '../'
     }))
@@ -71,13 +71,13 @@ gulp.task('html', ['wiredep', 'scripts', 'partials'], function () {
 });
 
 gulp.task('images', function () {
-  return gulp.src('app/assets/img/**/*')
+  return gulp.src('app/images/**/*')
     .pipe($.cache($.imagemin({
       optimizationLevel: 3,
       progressive: true,
       interlaced: true
     })))
-    .pipe(gulp.dest('dist/assets/img'))
+    .pipe(gulp.dest('dist/images'))
     .pipe($.size());
 });
 
