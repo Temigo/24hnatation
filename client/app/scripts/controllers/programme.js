@@ -27,6 +27,11 @@ angular.module('v24hApp')
         nom: "Tournoi de Water Polo"
     },
     {
+        debut: '19:45',
+        fin: '20:15',
+        nom: "Natation synchronisée"
+    },
+    {
         debut: '20:00',
         fin: '21:00',
         nom: "Challenge Natation"
@@ -40,11 +45,6 @@ angular.module('v24hApp')
         debut: '20:00',
         fin: '21:30',
         nom: "Baptême de plongée"
-    },
-    {
-        debut: '19:45',
-        fin: '20:15',
-        nom: "Natation synchronisée"
     },
     {
         debut: '21:30',
