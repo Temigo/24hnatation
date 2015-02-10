@@ -40,7 +40,7 @@
             <li ng-class="pactive == 'partenaires' && 'active'"><a title="Partenaires" href="#/partenaires">Partenaires</a></li>
             <li ng-if="!auth.isAuthenticated()" ng-class="pactive == 'inscription' && 'active'"><a title="Inscription" href="#/inscription">Inscription</a></li>
             <li ng-if="!auth.isAuthenticated()" ng-class="pactive == 'connexion' && 'active'"><a title="Connexion" href="#/connexion">Connexion</a></li>
-            <li ng-if="auth.isAuthenticated()"><a title="Déconnexion" ng-click="auth.logout()" class="link">Déconnexion</a></li>
+            <li ng-if="auth.isAuthenticated()"><a title="Déconnexion" ng-click="auth.logout()" class="link">Déconnexion <span class="uemail">({{ auth.getUser().email }})</span></a></li>
         </ul>
     </div>
 
