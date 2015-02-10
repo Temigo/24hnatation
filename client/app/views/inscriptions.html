@@ -3,7 +3,7 @@
     <div ng-if="profile.groups.length > 0">
         Vous faîtes partie des groupes suivants :<br />
         <ul>
-            <li ng-repeat="g in profile.groups">{{ groups[g].name }} • <a title="Quitter ce groupe" ng-click="removeGroup(g)" class="link">Partir</a></li>
+            <li ng-repeat="g in profile.groups">{{ groups[g].name }} - <a title="Quitter ce groupe" ng-click="removeGroup(g)" class="link">Partir</a></li>
         </ul>
     </div>
     <form ng-submit="addGroup(ngroup)">
@@ -33,7 +33,7 @@
     <form ng-submit="slotsubscribed()">
         Inscription à un nouveau créneau :&nbsp;
         <select ng-model="nslot.id">
-            <option ng-repeat="s in slots" value="{{ s.id }}">{{ s.start | date:'shortTime':'UTC' }} - {{ s.end | date:'shortTime':'UTC' }} : {{ s.value }} point{{ s.value > 1 && 's' || '' }}</option>
+            <option ng-repeat="s in aslots | orderBy: 'start'" value="{{ s.id }}">{{ s.start | date:'shortTime':'UTC' }} - {{ s.end | date:'shortTime':'UTC' }} : {{ s.value }} point{{ s.value > 1 && 's' || '' }}</option>
         </select>
         <input type="submit" value="Inscription" />
     </form>

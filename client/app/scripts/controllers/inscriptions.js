@@ -11,6 +11,7 @@ angular.module('v24hApp')
   .controller('InscriptionsCtrl', function ($scope, $rootScope, auth, $resource, APIURL) {
       $rootScope.pactive = 'inscriptions';
       $scope.iu = auth.getUser().id;
+      $scope.ptri = 'start';
 
       var Slotsubscription = $resource(APIURL + '/slotsubscription/:id/');
       var Slot = $resource(APIURL + '/slot/:id/', {id:'@id'});
@@ -22,6 +23,7 @@ angular.module('v24hApp')
       var User = $resource(APIURL + '/user/:id/');
 
       var slots = Slot.query(function ()  {
+          $scope.aslots = slots;
           $scope.slots = {};
           for (var i = 0; i < slots.length; i++) {
               $scope.slots[slots[i].id] = slots[i];
