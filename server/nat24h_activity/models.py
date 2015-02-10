@@ -29,7 +29,6 @@ class Team(models.Model):
     name = models.CharField(max_length=100)
     activity = models.ForeignKey(Activity)
     admin = models.ForeignKey(User, related_name="owned_team_set")
-    members = models.ManyToManyField(User)
     # result = models.CharField(max_length=500)
 
     def __unicode__(self):
@@ -45,7 +44,33 @@ class TeamSerializer(serializers.ModelSerializer):
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
-    filter_fields = ['activity', 'members']
+    filter_fields = ['activity']
+
+
+
+class TeamSubscription(models.Model):
+    user = models.ForeignKey(User)
+    team = models.ForeignKey(Team)
+    # result = models.FloatField()
+
+
+class TeamSubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TeamSubscription
+    _type = VirtualField("TeamSubscription")
+
+    def create(self, data):
+        request = self.context['request']
+        data['user'] = request.user
+        return super(TeamSubscriptionSerializer, self).create(data)
+
+
+class TeamSubscriptionViewSet(viewsets.ModelViewSet):
+    queryset = TeamSubscription.objects.all()
+    serializer_class = TeamSubscriptionSerializer
+    filter_fields = {
+        'team': ['exact'],
+        'user': ['exact']}
 
 
 
@@ -81,6 +106,11 @@ class TimeSlotSubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeSlotSubscription
     _type = VirtualField("TimeSlotSubscription")
+
+    def create(self, data):
+        request = self.context['request']
+        data['user'] = request.user
+        return super(TimeSlotSubscriptionSerializer, self).create(data)
 
 
 class TimeSlotSubscriptionViewSet(viewsets.ModelViewSet):
