@@ -65,11 +65,7 @@ class SignupView(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
-        data = dict()
-        for k, v in request.data.items():
-            data[k] = v
-        data['username'] = data['email']
-        unserializer = UserSerializer(data=data)
+        unserializer = UserSerializer(data=request.data)
         unserializer.is_valid(raise_exception=True)
         user = unserializer.save()
         # if 'password' in request.data:
