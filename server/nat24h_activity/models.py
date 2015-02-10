@@ -1,6 +1,6 @@
 from django.db import models
 from rest_framework import viewsets, serializers
-from django.contrib.auth.models import User
+from nat24h_base.models import User
 from nat24h.utils import VirtualField
 
 

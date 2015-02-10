@@ -104,6 +104,8 @@ AUTHENTICATION_BACKENDS = (
     'permission.backends.PermissionBackend',
 )
 
+AUTH_USER_MODEL = 'nat24h_base.User'
+
 import datetime
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=7 * 24),
