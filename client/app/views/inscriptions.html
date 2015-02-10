@@ -31,14 +31,16 @@
             <th>Nom</th>
             <th>Activité</th>
             <th>Horaire</th>
+            <th>Admin</th>
             <th>Membres</th>
         </tr>
         <tr ng-repeat="t in yourTeams">
-            <td>{{ t.name }}</td>
-            <td>{{ activities[t.activity].name }}</td>
-            <td>{{ activities[t.activity].start | date:'shortTime' }} - {{ activities[t.activity].end | date:'shortTime' }}</td>
+            <td>{{ teams[t.team].name }}</td>
+            <td>{{ activities[teams[t.team].activity].name }}</td>
+            <td>{{ activities[teams[t.team].activity].start | date:'shortTime' }} - {{ activities[teams[t.team].activity].end | date:'shortTime' }}</td>
+            <td>{{ users[teams[t.team].admin].first_name }} {{ users[teams[t.team].admin].last_name }}</td>
             <td>
-                <span ng-repeat="m in t.members">{{ users[m].first_name }} {{ users[m].last_name }} <span ng-show="t.admin == iu"><a title="Retirer des membres de l'équipe" ng-click="removeFromTeam(t.id, m.id)" class="link">Retirer</span><br /></span>
+                <span ng-repeat="m in t.members">{{ users[m.user].first_name }} {{ users[m.user].last_name }} <span ng-show="teams[t.team].admin == iu"><a title="Retirer des membres de l'équipe" ng-click="removeFromTeam(m.id)" class="link">Retirer</span><br /></span>
             </td>
         </tr>
     </table>

@@ -9,7 +9,7 @@
  */
 angular.module('v24hApp')
   .controller('InscriptionCtrl', function ($scope, $rootScope, $http, APIURL, $location) {
-    $rootScope.pactive = "connexion";
+    $rootScope.pactive = "inscription";
     $scope.user = {};
     $scope.inscription = function () {
         $http.post(APIURL + '/signup/', $scope.user).then(function () {

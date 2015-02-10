@@ -23,7 +23,7 @@
                   return $injector.get('$http').post(APIURL + '/api-token-auth/', credentials, {'headers':{'Content-Type':"application/json"}}).then(
                       function(response) {
                           $localStorage.auth.token = response.data.token;
-                          return $injector.get('$http').get(APIURL + '/user/?username=' + credentials.username, {'headers': {'Authorization': "JWT " + response.data.token}}).then(function (user) {
+                          return $injector.get('$http').get(APIURL + '/user/?email=' + credentials.email, {'headers': {'Authorization': "JWT " + response.data.token}}).then(function (user) {
                               $localStorage.auth.user = user.data[0];
                               return user.data[0];
                           });

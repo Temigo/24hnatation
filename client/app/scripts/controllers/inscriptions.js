@@ -15,7 +15,8 @@ angular.module('v24hApp')
       var Slotsubscription = $resource(APIURL + '/slotsubscription/:id/');
       var Slot = $resource(APIURL + '/slot/:id');
       var Activity = $resource(APIURL + '/activity/:id');
-      var Team = $resource(APIURL + '/team/:id/', {id:'@id'}, {update: {method: 'PUT'}});
+      var Team = $resource(APIURL + '/team/:id/', {id:'@id'});
+      var Teamsubscription = $resource(APIURL + '/teamsubscription/:id/', {id:'@id'});
       var User = $resource(APIURL + '/user/:id');
 
       var slots = Slot.query(function ()  {
@@ -46,12 +47,21 @@ angular.module('v24hApp')
       reloadSlotsubscriptions();
 
       function reloadTeams() {
-          var yourTeams = Team.query({'members': auth.getUser().id}, function () {
+          var yourTeams = Teamsubscription.query({'user': auth.getUser().id}, function () {
+              for (var i = 0; i < yourTeams.length; i++) {
+                  yourTeams[i].members = Teamsubscription.query({'team': yourTeams[i].team});
+              }
               $scope.yourTeams = yourTeams;
           });
-          $scope.teams = Team.query();
           $scope.nteam = {activity: 1, name: ''};
           $scope.jteam = {team: 1};
+
+          var teams = Team.query(function ()  {
+              $scope.teams = {};
+              for (var i = 0; i < teams.length; i++) {
+                  $scope.teams[teams[i].id] = teams[i];
+              }
+          });
       }
       reloadTeams();
 
@@ -71,18 +81,20 @@ angular.module('v24hApp')
           nteam.name = $scope.nteam.name;
           nteam.admin = auth.getUser().id;
           nteam.members = [auth.getUser().id];
-          nteam.$save(reloadTeams);
+          nteam.$save(function (nteams) {
+              var nteams = new Teamsubscription();
+              nteams.user = auth.getUser().id;
+              nteams.team = nteam.id;
+              nteams.$save(reloadTeams);
+          });
       };
       $scope.joinTeam = function () {
-          Team.get({id: $scope.jteam.team}, function (cteam) {
-              cteam.members.push(auth.getUser().id);
-              cteam.$update(reloadTeams);
-          });
+          var nteams = new Teamsubscription();
+          nteams.user = auth.getUser().id;
+          nteams.team = $scope.jteam.team;
+          nteams.$save(reloadTeams);
       };
-      $scope.removeFromTeam = function (team, member) {
-          Team.get({id: team}, function (cteam) {
-              cteam.members.splice(cteam.members.indexOf(member));
-              cteam.$update(reloadTeams);
-          });
+      $scope.removeFromTeam = function (id) {
+          Teamsubscription.delete({id: id}, reloadTeams);
       }
   });

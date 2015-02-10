@@ -38,6 +38,7 @@
             <li ng-if="false"><a title="Photos" href="#/photos">Photos</a></li>
             <li ng-class="pactive == 'contact' && 'active'"><a title="Contact" href="#/contact">Contact</a></li>
             <li ng-class="pactive == 'partenaires' && 'active'"><a title="Partenaires" href="#/partenaires">Partenaires</a></li>
+            <li ng-if="!auth.isAuthenticated()" ng-class="pactive == 'inscription' && 'active'"><a title="Inscription" href="#/inscription">Inscription</a></li>
             <li ng-if="!auth.isAuthenticated()" ng-class="pactive == 'connexion' && 'active'"><a title="Connexion" href="#/connexion">Connexion</a></li>
             <li ng-if="auth.isAuthenticated()"><a title="Déconnexion" ng-click="auth.logout()" class="link">Déconnexion</a></li>
         </ul>
@@ -85,6 +86,7 @@
     <!-- inject:views -->
     <!-- angular templates will be automaticaly converted in js and inserted here -->
     <!-- endinject -->
+    <script src="scripts/controllers/login.js"></script>
     <!-- endbuild -->
 </body>
 </html>

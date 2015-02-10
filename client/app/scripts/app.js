@@ -20,8 +20,8 @@ angular
   ])
   .provider('APIURL', function APIURLProvider() {
         var self = this;
-        // this.url = "http://nadrieril:8001/api";
-        this.url = "/api";
+        this.url = "http://lodan2:24000/api";
+        // this.url = "/api";
         this.$get = function(){return self.url;};
     })
   .config(function ($routeProvider) {
@@ -57,6 +57,10 @@ angular
       .when('/inscriptions', {
         templateUrl: 'views/inscriptions.html',
         controller: 'InscriptionsCtrl'
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'
