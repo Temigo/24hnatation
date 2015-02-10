@@ -84,7 +84,7 @@ class TimeSlot(models.Model):
     value = models.FloatField()
 
     def __unicode__(self):
-        return "slot %s : %s" % (self.start, self.end)
+        return "slot %s - %s (value: %d)" % (self.start.strftime('%H:%M'), self.end.strftime('%H:%M'), self.value)
 
 
 class TimeSlotSerializer(serializers.ModelSerializer):
