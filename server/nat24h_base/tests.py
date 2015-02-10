@@ -4,8 +4,8 @@ from nat24h_base.models import User
 
 class UserTests(APITestCase):
     def setUp(self):
+        # self.user = User.objects.create(email='bob')
         pass
-        # self.user = User.objects.create(username='bob')
 
     def test_singup(self):
         data = {'first_name': 'Test', 'last_name': 'Test', 'email': 'test@test.com'}

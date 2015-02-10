@@ -11,7 +11,6 @@ from nat24h.utils import get_default_permission_group
 from nat24h.utils import VirtualField
 
 
-
 class UserManager(BaseUserManager):
     def create_user(self, email, password):
         user = self.model(email=email)
@@ -21,7 +20,8 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, password):
         user = self.create_user(email, password)
-        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -51,7 +51,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ('groups', 'password', 'user_permissions')
-        read_only_fields = ('last_login', 'date_joined', 'is_superuser')
+        read_only_fields = ('last_login', 'date_joined', 'is_superuser', 'is_staff')
     _type = VirtualField("User")
 
 class UserViewSet(viewsets.ModelViewSet):
