@@ -58,7 +58,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     filter_fields = {
-        'username': ['exact']}
+        'email': ['exact']}
 
 
 class SignupView(APIView):
