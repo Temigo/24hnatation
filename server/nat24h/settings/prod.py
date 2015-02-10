@@ -12,3 +12,6 @@ DATABASES = {
         'PASSWORD': 'root',
     }
 }
+
+EMAIL_HOST = "frankiz"
+EMAIL_PORT = 25
