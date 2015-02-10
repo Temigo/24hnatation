@@ -43,22 +43,25 @@
         <div ng-if="slotsubscriptions.length > 0">
             Vous êtes inscrit
             <span ng-if="slotsubscriptions.length > 1">aux créneaux suivants</span>
-            <span ng-if="slotsubscriptions.length == 1">au créneau suivant</span> :<br />
-            <dl ng-repeat="s in slotsubscriptions | orderBy:orderSlots">
-                <dt>{{ slots[s.slot].start | date:'shortTime':'UTC' }} - {{ slots[s.slot].end | date:'shortTime':'UTC' }}</dt>
-                <dd>
-                    <span class="nbp">
-                        {{ slots[s.slot].value }} point{{ slots[s.slot].value > 1 && 's' || '' }}
-                    </span>
-                    <a title="Désinscription" ng-click="unsubscribe(s.id)" class="link">Désinscription</a>
-                </dd>
-            </dl>
+            <span ng-if="slotsubscriptions.length == 1">au créneau suivant</span> :<br /><br />
+            <table>
+                <tr>
+                    <th>Horaire</th>
+                    <th>Points / longueur</th>
+                    <th>Désinscription</th>
+                </tr>
+                <tr ng-repeat="s in slotsubscriptions | orderBy:orderSlots">
+                    <td>{{ slots[s.slot].start | date:'shortTime':'UTC' }} - {{ slots[s.slot].end | date:'shortTime':'UTC' }}</td>
+                    <td>{{ slots[s.slot].value }} point{{ slots[s.slot].value > 1 && 's' || '' }}</td>
+                    <td><a title="Désinscription" ng-click="unsubscribe(s.id)" class="link">Désinscription</a></td>
+                </tr>
+            </table>
             <br />
         </div>
         <form ng-submit="slotsubscribed()">
             Inscription à un nouveau créneau :&nbsp;
             <select ng-model="nslot.id">
-                <option ng-repeat="s in aslots | orderBy: 'start'" value="{{ s.id }}">{{ s.start | date:'shortTime':'UTC' }} - {{ s.end | date:'shortTime':'UTC' }} : {{ s.value }} point{{ s.value > 1 && 's' || '' }}</option>
+                <option ng-repeat="s in aslots | orderBy: 'start'" value="{{ s.id }}">{{ s.start | date:'shortTime':'UTC' }} - {{ s.end | date:'shortTime':'UTC' }} : {{ s.value }} point{{ s.value > 1 && 's' || '' }} / longueur</option>
             </select>
             <input type="submit" value="Inscription" />
         </form>
