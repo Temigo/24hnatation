@@ -10,6 +10,10 @@
 angular.module('v24hApp')
   .controller('ConnexionCtrl', function ($scope, $rootScope, auth, $location) {
     $rootScope.pactive = 'connexion';
+    if ($rootScope.justInscrit) {
+        $scope.message = "Un email avec votre mot de passe vient de vous être envoyé";
+        delete $rootScope.justInscrit;
+    }
 
     $scope.user = {
         email: '',

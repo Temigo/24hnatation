@@ -13,7 +13,10 @@ angular.module('v24hApp')
     $scope.user = {};
     $scope.inscription = function () {
         $http.post(APIURL + '/signup/', $scope.user).then(function () {
+            $rootScope.justInscrit = true;
             $location.path('/connexion');
+        }, function () {
+            $scope.message = "Vous êtes déjà inscrit. Votre mot de passe vous a été envoyé par mail ; vérifiez vos spams"
         });
     };
   });

@@ -16,7 +16,7 @@
         <br />
     </div>
     <form ng-submit="slotsubscribed()">
-        Inscription à un nouveau créneau :
+        Inscription à un nouveau créneau :&nbsp;
         <select ng-model="nslot.id">
             <option ng-repeat="s in slots" value="{{ s.id }}">{{ s.start | date:'shortTime' }} - {{ s.end | date:'shortTime' }} : {{ s.value }} point{{ s.value > 1 && 's' || '' }}</option>
         </select>
