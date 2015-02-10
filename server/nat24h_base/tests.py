@@ -8,7 +8,7 @@ class UserTests(APITestCase):
         # self.user = User.objects.create(username='bob')
 
     def test_singup(self):
-        data = {'first_name': 'Test', 'last_name': 'Test', 'mail': 'test@test.com'}
+        data = {'first_name': 'Test', 'last_name': 'Test', 'email': 'test@test.com'}
 
         response = self.client.post('/signup/', data)
         self.assertEqual(response.status_code, 201)
