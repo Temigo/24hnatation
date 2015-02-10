@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin, _user_has_module_perms, _user_has_perm
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from rest_framework import viewsets, serializers, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.core.mail import send_mail
 
 from nat24h.utils import get_default_permission_group
 from nat24h.utils import VirtualField
@@ -61,18 +62,43 @@ class UserViewSet(viewsets.ModelViewSet):
         'email': ['exact']}
 
 
+singup_mail = {
+    'from_email': '24hnatation@binets.polytechnique.fr',
+    'subject': 'Inscription aux 24h de la natation',
+    'message': """
+    Cher {name},
+
+    Merci de t'être inscrit aux 24h de la natation.
+    Pour t'inscrire aux activités, clique sur le lien suivant ou copie-le dans ton navigateur:
+    http://24hnatation.binets.fr/#/login/?email={email}&password={password}
+
+    Si le lien ne marche pas, vos identifiants pour accéder à votre inscription sont:
+    mail: {email}
+    password: {password}
+
+    Cordialement,
+    Les organisateurs des 24h de la natation
+    """
+}
+
 class SignupView(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
         unserializer = UserSerializer(data=request.data)
         unserializer.is_valid(raise_exception=True)
+
         user = unserializer.save()
-        # if 'password' in request.data:
-        #     user.set_password(request.data['password'])
-        user.set_password('password')
+        password = User.objects.make_random_password()
+        user.set_password(password)
         user.groups.add(get_default_permission_group())
         user.save()
+
+        mail = singup_mail.copy()
+        mail['recipient_list'] = [user.email]
+        full_name = '%s %s' % (user.first_name, user.last_name)
+        mail['message'] = mail['message'].format(email=user.email, password=password, name=full_name)
+        send_mail(**mail)
 
         serializer = UserSerializer(user)
         return Response(serializer.data, 201)
