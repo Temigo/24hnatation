@@ -42,8 +42,8 @@ angular.module('v24hApp')
         nom: "Baptême de plongée"
     },
     {
-        debut: '21:00',
-        fin: '21:30',
+        debut: '19:45',
+        fin: '20:15',
         nom: "Natation synchronisée"
     },
     {
