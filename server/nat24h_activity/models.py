@@ -53,6 +53,9 @@ class TeamSubscription(models.Model):
     team = models.ForeignKey(Team)
     # result = models.FloatField()
 
+    def __unicode__(self):
+        return "%s : %s" % (unicode(self.team), unicode(self.user))
+
 
 class TeamSubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -100,6 +103,9 @@ class TimeSlotSubscription(models.Model):
     user = models.ForeignKey(User)
     slot = models.ForeignKey(TimeSlot)
     # result = models.FloatField()
+
+    def __unicode__(self):
+        return "%s : %s" % (unicode(self.slot), unicode(self.user))
 
 
 class TimeSlotSubscriptionSerializer(serializers.ModelSerializer):
