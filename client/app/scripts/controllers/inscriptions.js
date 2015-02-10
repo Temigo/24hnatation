@@ -12,6 +12,11 @@ angular.module('v24hApp')
       $rootScope.pactive = 'inscriptions';
       $scope.iu = auth.getUser().id;
       $scope.ptri = 'start';
+      $scope.gtypes = {
+          binet: "Asso/Binet",
+          school: "École",
+          section: "Section"
+      };
 
       var Slotsubscription = $resource(APIURL + '/slotsubscription/:id/');
       var Slot = $resource(APIURL + '/slot/:id/', {id:'@id'});
@@ -41,12 +46,6 @@ angular.module('v24hApp')
               $scope.users[users[i].id] = users[i];
           }
       });
-      var groups = Group.query(function ()  {
-          $scope.groups = {};
-          for (var i = 0; i < groups.length; i++) {
-              $scope.groups[groups[i].id] = groups[i];
-          }
-      });
       var uprofile = Profile.query({'user': auth.getUser().id}, function (uprofile) {
           $scope.profile = uprofile[0];
       });
@@ -58,6 +57,16 @@ angular.module('v24hApp')
           $scope.nslot = {id: 1};
       }
       reloadSlotsubscriptions();
+
+      function reloadGroups() {
+          var groups = Group.query(function ()  {
+              $scope.groups = {};
+              for (var i = 0; i < groups.length; i++) {
+                  $scope.groups[groups[i].id] = groups[i];
+              }
+          });
+      };
+      reloadGroups();
 
       function reloadTeams() {
           var yourTeams = Teamsubscription.query({'user': auth.getUser().id}, function () {
@@ -118,5 +127,18 @@ angular.module('v24hApp')
       $scope.removeGroup = function (id) {
           $scope.profile.groups.splice($scope.profile.groups.indexOf(id));
           $scope.profile.$update();
+      };
+      $scope.createGroup = function (name, type) {
+          $scope.cgroup = {};
+          var ngroup = new Group();
+          ngroup.name = name;
+          ngroup.type = type;
+          ngroup.$save(function (ngroups) {
+              $scope.addGroup(ngroups.id);
+              reloadGroups();
+          });
+      };
+      $scope.orderSlots = function (s) {
+          return slots[s.slot] && slots[s.slot].start;
       };
   });
