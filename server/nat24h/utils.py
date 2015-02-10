@@ -36,3 +36,11 @@ def get_default_permission_group():
         g.permissions.add(get_permission('nat24h_activity', 'add_timeslotsubscription'))
         g.save()
         return g
+
+
+from django.contrib.auth.backends import ModelBackend
+
+class AuthenticationBackend(ModelBackend):
+    def has_perm(self, user_obj, perm, obj=None):
+        print perm, obj
+        return super(AuthenticationBackend, self).has_perm(user_obj, perm, obj)

@@ -99,7 +99,8 @@ REST_FRAMEWORK = {
 # Auth
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
+    'nat24h.utils.AuthenticationBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
     'permission.backends.PermissionBackend',
 )
 
