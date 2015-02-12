@@ -27,13 +27,6 @@ angular.module('v24hApp')
       var Teamsubscription = $resource(APIURL + '/teamsubscription/:id/', {id:'@id'});
       var User = $resource(APIURL + '/user/:id/');
 
-      var slots = Slot.query(function ()  {
-          $scope.aslots = slots;
-          $scope.slots = {};
-          for (var i = 0; i < slots.length; i++) {
-              $scope.slots[slots[i].id] = slots[i];
-          }
-      });
       var activities = Activity.query(function ()  {
           $scope.activities = {};
           for (var i = 0; i < activities.length; i++) {
@@ -50,11 +43,23 @@ angular.module('v24hApp')
           $scope.profile = uprofile[0];
       });
 
+      var slots;
+      function reloadSlots() {
+          slots = Slot.query(function ()  {
+              $scope.aslots = slots;
+              $scope.slots = {};
+              for (var i = 0; i < slots.length; i++) {
+                  $scope.slots[slots[i].id] = slots[i];
+              }
+          });
+      }
+
       function reloadSlotsubscriptions() {
           var slotsubscriptions = Slotsubscription.query({'user': auth.getUser().id}, function () {
               $scope.slotsubscriptions = slotsubscriptions;
           });
           $scope.nslot = {id: 1};
+          reloadSlots();
       }
       reloadSlotsubscriptions();
 
