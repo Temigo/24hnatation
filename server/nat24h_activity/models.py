@@ -86,11 +86,15 @@ class TimeSlot(models.Model):
     def __unicode__(self):
         return "slot %s - %s (value: %d)" % (self.start.strftime('%H:%M'), self.end.strftime('%H:%M'), self.value)
 
+    def n_subscribed_users(self):
+        return len(self.timeslotsubscription_set.all())
+
 
 class TimeSlotSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeSlot
     _type = VirtualField("TimeSlot")
+    n_subscribed_users = serializers.IntegerField(read_only=True)
 
 
 class TimeSlotViewSet(viewsets.ModelViewSet):
