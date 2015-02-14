@@ -1,7 +1,6 @@
 from .dev_local import *
 
-# TODO: temporary
-DEBUG = True
+DEBUG = False
 
 DATABASES = {
     'default': {
