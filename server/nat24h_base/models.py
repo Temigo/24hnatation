@@ -65,7 +65,7 @@ class UserViewSet(viewsets.ModelViewSet):
 singup_mail = {
     'from_email': '24hnatation@binets.polytechnique.fr',
     'subject': 'Inscription aux 24h de la natation',
-    'message': """
+    'message': u"""
 Cher {name},
 
 Merci de t'être inscrit aux 24h de la natation.
