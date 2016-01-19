@@ -4,7 +4,8 @@ Run:
 
 pip install -r requirements.txt
 
-python manage.py syncdb
+(python manage.py syncdb)
+In Django 1.9 : makemigrations and migrate
 
 python manage.py collectstatic
 
