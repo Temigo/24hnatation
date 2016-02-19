@@ -87,7 +87,7 @@ class SignupView(APIView):
     def post(self, request):
         unserializer = UserSerializer(data=request.data)
         unserializer.is_valid(raise_exception=True)
-
+        
         user = unserializer.save()
         password = User.objects.make_random_password()
         user.set_password(password)

@@ -26,6 +26,7 @@ angular.module('v24hApp')
       var Team = $resource(APIURL + '/team/:id/', {id:'@id'});
       var Teamsubscription = $resource(APIURL + '/teamsubscription/:id/', {id:'@id'});
       var User = $resource(APIURL + '/user/:id/');
+      var Activitysubscription = $resource(APIURL + '/activitysubscription/:id/', {id:'@id'});
 
       var activities = Activity.query(function ()  {
           $scope.activities = {};
@@ -44,6 +45,8 @@ angular.module('v24hApp')
       });
 
       var slots;
+      var activitiesSubscriptions;
+
       function reloadSlots() {
           slots = Slot.query(function ()  {
               $scope.aslots = slots;
@@ -91,6 +94,26 @@ angular.module('v24hApp')
           });
       }
       reloadTeams();
+
+      function reloadActivities() {
+          activitiesS = Activitysubscription.query(function ()  {
+              $scope.aActivities = activitiesS;
+              $scope.activitiesSubscriptions = {};
+              for (var i = 0; i < slots.length; i++) {
+                  $scope.activitiesSubscriptions[activitiesS[i].id] = activitiesS[i];
+              }
+          });
+      }
+
+      function reloadActivitysubscriptions() {
+          var activitysubscriptions = Activitysubscription.query({'user': auth.getUser().id}, function () {
+              $scope.activitysubscriptions = activitysubscriptions;
+          });
+          $scope.nactivity = {id: 1};
+          $scope.jactivity = {activity: 1};
+          //reloadActivities();
+      }
+      reloadActivitysubscriptions();
 
       $scope.slotsubscribed = function () {
           var nslot = new Slotsubscription();
@@ -143,6 +166,25 @@ angular.module('v24hApp')
               reloadGroups();
           });
       };
+
+      $scope.activitysubscribed = function () {
+          /*console.log($scope.activitysubscriptions.filter(function(el) {
+              return el.activity;
+          }));*/
+          /*var addSub = false;
+          for (var i = 0; i < $scope.activitysubscriptions.length ; i++) {
+              if ($scope.activitysubscriptions[i].activity == $scope.jactivity.activity) {
+                  addSub = true;
+              }
+          }
+          if (!addSub) {*/
+              var nactivity = new Activitysubscription();
+              nactivity.user = auth.getUser().id;
+              nactivity.activity = $scope.jactivity.activity;
+              nactivity.$save(reloadActivitysubscriptions);
+          //}
+      };
+
       $scope.orderSlots = function (s) {
           return slots[s.slot] && slots[s.slot].start;
       };

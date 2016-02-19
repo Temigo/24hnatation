@@ -8,6 +8,7 @@ class Activity(models.Model):
     name = models.CharField(max_length=100)
     start = models.DateTimeField()
     end = models.DateTimeField()
+    single = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.name
@@ -23,7 +24,32 @@ class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
+class ActivitySubscription(models.Model):
+    user = models.ForeignKey(User)
+    activity = models.ForeignKey(Activity)
+    # result = models.FloatField()
 
+    def __unicode__(self):
+        return "%s : %s" % (unicode(self.activity), unicode(self.user))
+
+
+class ActivitySubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ActivitySubscription
+    _type = VirtualField("ActivitySubscription")
+
+    def create(self, data):
+        request = self.context['request']
+        data['user'] = request.user
+        return super(ActivitySubscriptionSerializer, self).create(data)
+
+
+class ActivitySubscriptionViewSet(viewsets.ModelViewSet):
+    queryset = ActivitySubscription.objects.all()
+    serializer_class = ActivitySubscriptionSerializer
+    filter_fields = {
+        'activity': ['exact'],
+        'user': ['exact']}
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
