@@ -22,8 +22,8 @@ angular
         var self = this;
         // this.url = "http://lodan2:24000/api";
         //this.url = "/api";
-        this.url = "http://127.0.0.1:8000";
-        //this.url = "http://api.24hnatation.binets.fr";
+        //this.url = "http://127.0.0.1:8000";
+        this.url = "http://api.24hnatation.binets.fr";
         this.$get = function(){return self.url;};
     })
   .config(function ($routeProvider) {

@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'corsheaders',
     'permission',
     'nat24h_base',
-    'nat24h_activity'
+    'nat24h_activity',
+    'import_export',
 )
 
 
